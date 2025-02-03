@@ -83,6 +83,7 @@ dependencies {
     implementation(dep.mongoDBCore)
     implementation(dep.springMongo)
     implementation("org.springframework.boot", "spring-boot-starter-data-mongodb", springBootAdminVersion)
+    implementation(dep.dotEnv)
 
     // Processors
     annotationProcessor(libs.lombok)

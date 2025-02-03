@@ -5,8 +5,8 @@ sportsDataCommon = "3.0.31"
 confluenKafka = "7.5.1"
 openApi = "2.2.0"
 mongoDB = "5.3.0"
-springMongo = "4.4.1"
-
+springMongo = "4.1.2"
+dotEnv = "3.1.0"
 
 
 [libraries]
@@ -23,5 +23,6 @@ mongoDB = {module = "org.mongodb:mongodb-driver-sync", version.ref = "mongoDB"}
 mongoDBReactiveStream = {module = "org.mongodb:mongodb-driver-reactivestreams", version.ref = "mongoDB"}
 mongoDBCore = {module = "org.mongodb:mongodb-driver-core", version.ref = "mongoDB"}
 springMongo = {module = "org.springframework.data:spring-data-mongodb", version.ref = "springMongo"}
+dotEnv = {module = "io.github.cdimascio:dotenv-java", version.ref = "dotEnv"}
 
 

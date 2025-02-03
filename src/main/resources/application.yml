@@ -6,16 +6,17 @@ LOG_METADATA_SOURCE: sports-workers-mongo-poc
 server:
   port: 81
 
-MONGO_DB_CLUSTER: ${MONGO_DB_CLUSTER}
-MONGO_DB_USER: ${MONGO_DB_USER}
-MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
-MONGO_DB_APP_NAME: ${MONGO_DB_APP_NAME}
+MONGO_DB_CLUSTER: \${MONGO_DB_CLUSTER}
+MONGO_DB_USER: \${MONGO_DB_CLUSTER}
+MONGO_DB_PASSWORD: \${MONGO_DB_PASSWORD}
+MONGO_DB_APP_NAME: \${MONGO_DB_APP_NAME}
+MONGO_DATABASE_NAME: \${MONGO_DATABASE_NAME}
 
 spring:
   data:
     mongodb:
       uri: mongodb+srv://\${MONGO_DB_USER}:\${MONGO_DB_PASSWORD}@\${MONGO_DB_CLUSTER}.nmcde.mongodb.net/?retryWrites=true&w=majority&appName=\${MONGO_DB_APP_NAME}
-      database: mdbuser_test_db
+      database: \${MONGO_DATABASE_NAME}
   boot:
     admin:
       client:
