@@ -45,7 +45,14 @@ This project is a Spring Boot-based REST API that performs basic CRUD operations
 1. Install and run MongoDB.
 2. Clone this repository.
 3. Ensure you have Java and Gradle installed.
-4. Configure MongoDB connection in `application.properties`.
+4. Configure .env file for mongo connection details in `.env` file. Create the file if not available in the root directory.
+   1. ```shell
+      MONGO_DB_CLUSTER=
+      MONGO_DB_USER=
+      MONGO_DB_PASSWORD=
+      MONGO_DB_APP_NAME=
+      MONGO_DATABASE_NAME=
+```
 5. Run the application:
    ```bash
    ./gradlew bootRun
