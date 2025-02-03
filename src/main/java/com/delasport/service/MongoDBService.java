@@ -48,6 +48,6 @@ public class MongoDBService {
   }
 
   private static String genericResponse(final String outcome, final String entity, final Long id) {
-    return String.format("[%s} to add entity of type: %s for id %d.", outcome, entity, id);
+    return String.format("[%s] to add entity of type: %s for id %d.", outcome, entity, id);
   }
 }
