@@ -1,0 +1,102 @@
+LOG_METADATA_DIVISION: sport
+LOG_PROJECT_VERSION:  ${projectVersion}
+LOG_METADATA_COMPONENT: sports-workers
+LOG_METADATA_SOURCE: sports-workers-mongo-poc
+
+server:
+  port: 81
+
+MONGO_DB_CLUSTER: myatlasclusteredu
+MONGO_DB_USER: myAtlasDBUser
+MONGO_DB_PASSWORD: delasport
+MONGO_DB_APP_NAME: myAtlasClusterEDU
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://\${MONGO_DB_USER}:\${MONGO_DB_PASSWORD}@\${MONGO_DB_CLUSTER}.nmcde.mongodb.net/?retryWrites=true&w=majority&appName=\${MONGO_DB_APP_NAME}
+      database: mdbuser_test_db
+  boot:
+    admin:
+      client:
+        url: http://localhost:8060/
+        username: admin
+        password: admin
+        enabled: true
+  application:
+    name: \${LOG_METADATA_SOURCE}
+  kafka:
+    bootstrap-servers: localhost:9092
+    properties:
+      sasl.jaas.config:
+      sasl.mechanism: PLAIN
+      security.protocol: PLAINTEXT
+      client.dns.lookup: use_all_dns_ips
+      max.request.size: 10000000
+      allow.auto.create.topics: false
+      spring.json.trusted.packages: com.delasport.*
+      session.timeout.ms: 45000
+      health-indicator.timeout-ms: 5000
+      #Schema Registry Properties
+      schema.registry.url: http://localhost:8081
+      # Whether schemas that do not yet exist should be registered
+      auto.register.schemas: true
+
+    consumer:
+      auto-offset-reset: earliest
+      # Build a noOffset committing default consumer factory
+      enable-auto-commit: false
+      # Spring class to cleanly handle deserialization errors
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      # Spring class to cleanly handle deserialization errors
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      #      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
+        #  Deserialize to the generated Avro class rather than a GenericRecord type
+        specific.avro.reader: true
+        avro.reflection.allow.null: true
+        spring.deserializer:
+          # The key is defined in Json format, so use the Json deserializer
+          key.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+          # The Confluent class to deserialize messages in the Avro format
+          value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+
+app:
+  env: local
+  mongo:
+    connection-str: mongodb+srv://\${MONGO_DB_USER}:\${MONGO_DB_PASSWORD}@\${MONGO_DB_CLUSTER}.nmcde.mongodb.net/?retryWrites=true&w=majority&appName=\${MONGO_DB_APP_NAME}
+    database-name: mdbuser_test_db
+
+management:
+  health:
+    readinessState:
+      enabled: true
+    livenessState:
+      enabled: true
+  endpoint:
+    prometheus:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      group:
+        readiness:
+          include:
+            - livenessState
+        liveness:
+          include:
+            - livenessState
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  config: classpath:logback-structured.xml
+  level:
+    root: error
+    com.delasport: info
+    org.apache.kafka: error
+    org.springframework: error

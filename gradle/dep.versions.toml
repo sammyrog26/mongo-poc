@@ -1,0 +1,27 @@
+[versions]
+delasportJavaCommons = "3.6.19"
+cacheStreaming = "2.0.211"
+sportsDataCommon = "3.0.31"
+confluenKafka = "7.5.1"
+openApi = "2.2.0"
+mongoDB = "5.3.0"
+springMongo = "4.4.1"
+
+
+
+[libraries]
+delasportJavaCommonsLogs = { module = "com.delasport.sports.commons.java.libs:logs", version.ref = "delasportJavaCommons"}
+delasportJavaCommonsMetrics = { module = "com.delasport.sports.commons.java.libs:metrics", version.ref = "delasportJavaCommons"}
+delasportJavaCommonsKafka = { module = "com.delasport.sports.commons.java.libs:kafka", version.ref = "delasportJavaCommons"}
+delasportJavaCommonsTools = { module = "com.delasport.sports.commons.java.libs:tools", version.ref = "delasportJavaCommons"}
+cacheStreaming = { module = "com.delasport.sportsbook.cache.streaming:model", version.ref = "cacheStreaming"}
+sportsDataCommon = { module = "com.delasport.sports.commons.java:model", version.ref = "sportsDataCommon"}
+kafkaStreamsAvroSerde = { module = "io.confluent:kafka-streams-avro-serde", version.ref = "confluenKafka"}
+kafkaStreamsJsonSchemaSerde = { module = "io.confluent:kafka-streams-json-schema-serde", version.ref = "confluenKafka"}
+openApi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "openApi"}
+mongoDB = {module = "org.mongodb:mongodb-driver-sync", version.ref = "mongoDB"}
+mongoDBReactiveStream = {module = "org.mongodb:mongodb-driver-reactivestreams", version.ref = "mongoDB"}
+mongoDBCore = {module = "org.mongodb:mongodb-driver-core", version.ref = "mongoDB"}
+springMongo = {module = "org.springframework.data:spring-data-mongodb", version.ref = "springMongo"}
+
+

@@ -1,0 +1,52 @@
+<configuration>
+    <springProperty name="LOG_METADATA_DIVISION" source="LOG_METADATA_DIVISION"/>
+    <springProperty name="LOG_METADATA_COMPONENT" source="LOG_METADATA_COMPONENT"/>
+    <springProperty name="LOG_METADATA_SOURCE" source="LOG_METADATA_SOURCE"/>
+    <springProperty name="LOG_PROJECT_VERSION" source="LOG_PROJECT_VERSION"/>
+    <springProperty name="LOG_LEVEL" source="LOG_LEVEL"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <!--            <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>-->
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSSSSSSXXX}",
+                        "level": "%-5level",
+                        "javaError": "%ex",
+                        "message":"%message %ex"
+                        }
+                    </pattern>
+                </pattern>
+                <rawMessage>
+                    <fieldName>messageTemplate</fieldName>
+                </rawMessage>
+                <pattern>
+                    <pattern>
+                        {
+                        "metadata":
+                        {
+                        "division": "${LOG_METADATA_DIVISION}",
+                        "component": "${LOG_METADATA_COMPONENT}",
+                        "source": "${LOG_METADATA_SOURCE}",
+                        "namespace": "%logger",
+                        "processIdAsString": "${PID}",
+                        "version": "${LOG_PROJECT_VERSION}",
+                        "logType": "structured",
+                        "structureVersion": "v1.0.0"
+                        }
+                        }
+                    </pattern>
+                </pattern>
+                <arguments>
+                    <includeNonStructuredArguments>true</includeNonStructuredArguments>
+                    <nonStructuredArgumentsFieldPrefix>prefix</nonStructuredArgumentsFieldPrefix>
+                </arguments>
+            </providers>
+        </encoder>
+    </appender>
+    <root level="TRACE">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
